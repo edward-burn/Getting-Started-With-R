@@ -1,0 +1,661 @@
+---
+title: "Getting started with R"
+author: "Ed Burn"
+format:
+  revealjs: 
+    theme: [simple, custom_1.scss]
+    incremental: true   
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    margin: 0.07
+    code-link: true
+    code-line-numbers: false
+    height: 900
+    width: 1600
+execute:
+  echo: true
+  eval: true
+editor: visual
+---
+
+## Outline
+
+::: incremental
+1.  Basics
+2.  Data manipulation
+3.  Visualising data
+4.  Summarising data
+5.  Iteration and functions
+6.  Organising projects
+:::
+
+# Basics
+
+## R and RStudio
+
+::: columns
+::: {.column width="30%"}
+::: fragment
+![](images/300px-R_terminal.jpg){width="400"}
+:::
+:::
+
+::: {.column width="70%"}
+::: fragment
+![](images/rstudio-editor-01.png){width="1000"}
+:::
+:::
+:::
+
+## Installing packages
+
+<br/>
+
+From CRAN
+
+```{r}
+#| eval: false
+#| code-line-numbers: "1"
+install.packages("dplyr")
+```
+
+<br/>
+
+. . .
+
+From github
+
+```{r}
+#| eval: false
+install.packages("remotes")
+remotes::install_github("Darwin-EU/CodelistGenerator")
+```
+
+## Using packages
+
+```{r, eval=FALSE}
+dplyr::rename(....)
+```
+
+<br/>
+
+. . .
+
+```{r, eval=FALSE}
+library(dplyr)
+rename(....)
+```
+
+<br/>
+
+. . .
+
+Typically for analysis scripts, I would load all the libraries I use at the top of the script.
+
+![](images/paste-139DB4E1.png){width="400"}
+
+## Creating objects in R
+
+<br/>
+
+```{r}
+1 + 1
+```
+
+<br/>
+
+. . .
+
+To do useful things in R we need to assign values to objects. . . . <br/> To create an object, we need to give it a name followed by the assignment operator \<-, and the value we want to give it: . . .
+
+```{r}
+weight_kg <- 55
+weight_kg
+```
+
+<br/>
+
+. . .
+
+```{r}
+weight_lb <- 2.2 * weight_kg
+weight_lb
+```
+
+## Vectors and data types
+
+There are four primary types of atomic vectors in R: logical, integer, double, and character (which contains strings)
+
+<br/>
+
+. . . .
+
+```{r}
+# Logicals can be written in full (TRUE or FALSE), or abbreviated (T or F).
+lgl_var <- c(TRUE, FALSE)
+lgl_var
+```
+
+<br/>
+
+. . .
+
+```{r}
+# Integers are written similarly to doubles but must be followed by L, and can not contain fractional values.
+int_var <- c(1L, 6L, 10L)
+int_var
+```
+
+<br/>
+
+. . .
+
+```{r}
+# Doubles can be specified in decimal (0.1234), scientific (1.23e4), or hexadecimal (0xcafe) form. There are three special values unique to doubles: Inf, -Inf, and NaN (not a number). These are special values defined by the floating point standard.
+dbl_var <- c(1, 2.5, 4.5)
+dbl_var
+```
+
+<br/>
+
+. . .
+
+```{r}
+# Strings are surrounded by " ("hi") or ' ('bye'). Special characters are escaped with \; see ?Quotes for full details.
+chr_var <- c("these are", "some strings")
+chr_var
+```
+
+## Working with vectors
+
+We can assign a series of values to a vector using the c() function
+
+<br/>
+
+. . .
+
+```{r}
+weight_g <- c(50, 60, 65, 82)
+```
+
+<br/>
+
+. . .
+
+```{r}
+weight_g * 2
+```
+
+<br/>
+
+. . .
+
+```{r}
+weight_g * c(1,2,3,4)
+```
+
+<br/>
+
+. . .
+
+```{r}
+weight_g * c(1,2)
+```
+
+## Aggregating functions
+
+```{r}
+vec1 <- c(7, 5, 3, 1)
+vec1
+```
+
+<br/>
+
+. . .
+
+```{r}
+sum(vec1)
+```
+
+<br/>
+
+. . .
+
+```{r}
+min(vec1)
+mean(vec1)
+median(vec1)
+max(vec1)
+```
+
+## Subsetting vectors
+
+```{r}
+weight_g <- c(21, 34, 39, 54, 55)
+```
+
+<br/>
+
+. . .
+
+```{r}
+weight_g[2]
+weight_g[c(2:4)]
+```
+
+<br/>
+
+. . .
+
+```{r}
+weight_g > 50 
+weight_g[weight_g > 50]
+```
+
+<br/>
+
+. . .
+
+```{r}
+weight_g[weight_g > 30 & weight_g < 50]
+```
+
+## Data frames
+
+![](images/data-frame.svg){width="400"}
+
+## Tibbles
+
+Tibbles *are* data frames, but they tweak some older behaviours to make life a little easier.
+
+Compared to a data frame, a tibble() does much less: it never changes the type of the inputs (e.g. it never converts strings to factors!), it never changes the names of variables, and it never creates row names.
+
+<br/>
+
+. . .
+
+```{r}
+iris # dataframe
+
+dplyr::as_tibble(iris)
+```
+
+## Tidy data
+
+![](images/85520b8f-4629-4763-8a2a-9ceff27458bf_rw_1920.jpg){width="1000"} Artwork by @allison_horst
+
+## Getting data into R
+
+![](images/import_readr.png)
+
+<br/>
+
+. . .
+
+```{r, eval=FALSE}
+chickens <- read_csv(
+  readr_example("chickens.csv"),
+  col_types = cols(
+    chicken   = col_character(),
+    sex       = col_factor(levels = c("rooster", "hen")),
+    eggs_laid = col_integer(),
+    motto     = col_character()
+  )
+)
+```
+
+## Penguins data
+
+![](images/lter_penguins.png){width="300"}
+
+*Artwork by \@allison_horst*
+
+The from [palmerpenguins package](https://allisonhorst.github.io/palmerpenguins/) contains data on penguins collected from the [Palmer Station](https://en.wikipedia.org/wiki/Palmer_Station) in Antarctica.
+
+## Penguins data
+
+```{r, eval=FALSE}
+install.packages("palmerpenguins")
+```
+
+<br/>
+
+```{r, message=FALSE}
+library(palmerpenguins)
+```
+
+<br/>
+
+. . .
+
+```{r, message=FALSE}
+penguins
+```
+
+# Data manipulation
+
+## glimpse()
+
+```{r, message=FALSE}
+library(dplyr)
+```
+
+<br/>
+
+```{r, message=FALSE}
+penguins %>% 
+  glimpse()
+```
+
+## select()
+
+```{r, message=FALSE}
+penguins %>% 
+  select(c("species", "island"))
+```
+
+## mutate()
+
+```{r, message=FALSE}
+penguins %>% 
+  select(c("species", "island")) %>% 
+  mutate(species_island=paste0(species, " - ", island))
+```
+
+## rename()
+
+```{r, message=FALSE}
+penguins %>% 
+  select(c("species", "island")) %>% 
+  rename("type"="species")
+```
+
+## filter()
+
+```{r, message=FALSE}
+penguins %>% 
+  filter(species=="Chinstrap")
+```
+
+## bind_rows()
+
+```{r, message=FALSE}
+penguins %>% head(5)
+```
+
+<br/>
+
+```{r, message=FALSE}
+penguins %>% tail(5)
+```
+
+## bind_rows()
+
+```{r, message=FALSE}
+bind_rows(
+penguins %>% head(5),
+penguins %>% tail(5))
+```
+
+## left_join()
+
+```{r, message=FALSE}
+penguins1 <- penguins %>% 
+  select(-"island")
+penguins1 %>% head(2)
+```
+
+<br/>
+
+```{r, message=FALSE}
+islands <- penguins %>% 
+  select(c("species", "island")) %>% 
+  distinct()
+islands %>% head(2)
+```
+
+## left_join()
+
+```{r}
+penguins1 %>% 
+left_join(islands,
+          by=c("species"))
+```
+
+## pivot_longer()
+
+```{r}
+library(tidyr)
+```
+
+<br/>
+
+```{r}
+penguins %>% 
+   pivot_longer(cols = c("bill_length_mm",
+                  "bill_depth_mm",
+                  "flipper_length_mm",
+                  "body_mass_g"),
+                names_to = "measurement",
+                values_to = "value")
+```
+
+# Visualising data
+
+## Historgram of body mass
+
+```{r}
+library(ggplot2)
+```
+
+<br/>
+
+```{r, warning=FALSE}
+penguins %>%   
+ggplot()+ 
+   geom_histogram(aes(body_mass_g))
+```
+
+## Historgram of body mass
+
+```{r, warning=FALSE}
+penguins %>%   
+ggplot()+ 
+geom_histogram(aes(body_mass_g), colour="black", binwidth = 100)+
+   theme_bw()
+```
+
+## Historgram of body mass
+
+```{r}
+penguins %>%   
+ggplot(aes(group=species, fill=species))+
+geom_histogram(aes(body_mass_g), colour="black", binwidth = 100)+
+   theme_bw()
+```
+
+## Historgram of body mass
+
+```{r}
+penguins %>% 
+   ggplot(aes(group=species, fill=species))+
+   facet_grid(species~ .) +
+   geom_histogram(aes(body_mass_g), colour="black", binwidth = 100)+
+   theme_bw()+
+   theme(legend.position = "none")
+```
+
+## Historgram of body mass
+
+```{r}
+penguins %>% 
+   ggplot(aes(group=species, fill=species))+
+   facet_grid(species~ sex) +
+   geom_histogram(aes(body_mass_g), colour="black", binwidth = 100)+
+   theme_bw()+
+   theme(legend.position = "none")
+```
+
+# Summarising data
+
+## summarise()
+
+```{r}
+penguins %>% 
+  summarise(min_body_mass_g=min(body_mass_g, na.rm=TRUE),
+            median_body_mass_g=quantile( body_mass_g, 0.5, na.rm=TRUE),
+            max=max(body_mass_g, na.rm=TRUE))
+```
+
+## group_by() and summarise()
+
+```{r}
+penguins %>% 
+  group_by(species) %>% 
+  summarise(min_body_mass_g=min(body_mass_g, na.rm=TRUE),
+            median_body_mass_g=quantile( body_mass_g, 0.5, na.rm=TRUE),
+            max=max(body_mass_g, na.rm=TRUE))
+```
+
+## group_by() and summarise()
+
+```{r}
+penguins %>% 
+  group_by(species, sex) %>% 
+  summarise(min=min(body_mass_g, na.rm=TRUE),
+            median=quantile( body_mass_g, 0.5, na.rm=TRUE),
+            max=max(body_mass_g, na.rm=TRUE))
+```
+
+# Iteration and functions
+
+```{r}
+penguins %>% 
+  group_by(species, sex) %>% 
+  summarise(min=min(body_mass_g, na.rm=TRUE),
+            median=quantile( body_mass_g, 0.5, na.rm=TRUE),
+            max=max(body_mass_g, na.rm=TRUE))
+```
+
+<br/>
+
+. . .
+
+```{r}
+penguins %>% 
+  group_by(species, sex) %>% 
+  summarise(min=min(flipper_length_mm, na.rm=TRUE),
+            median=quantile(flipper_length_mm, 0.5, na.rm=TRUE),
+            max=max(flipper_length_mm, na.rm=TRUE))
+
+```
+
+## function
+
+```{r}
+penguin_summary<-function(var){
+
+penguins %>% 
+  group_by(species, sex) %>% 
+  summarise(min = min({{ var }}, na.rm=TRUE),
+            median = quantile({{ var }}, 0.5, na.rm=TRUE),
+            max = max({{ var }}, na.rm=TRUE))
+
+}
+
+```
+
+<br/>
+
+. . .
+
+```{r}
+penguin_summary(body_mass_g) %>% head(2)
+```
+
+<br/>
+
+. . .
+
+```{r}
+penguin_summary(flipper_length_mm) %>% head(2)
+```
+
+## for loop
+
+```{r, message=FALSE}
+summaries<-list() # empty list to store results
+vars_to_summarise <- c("bill_length_mm",
+                       "bill_depth_mm",
+                       "flipper_length_mm",
+                       "body_mass_g")
+
+for(i in 1:length(vars_to_summarise)){
+working_var<- vars_to_summarise[i]
+summaries[[vars_to_summarise[[i]]]] <- penguin_summary(!!rlang::sym(vars_to_summarise[[i]]))
+}
+
+```
+
+<br/>
+
+. . .
+
+```{r, message=FALSE}
+summaries$bill_length_mm %>% head(2)
+```
+
+<br/>
+
+. . .
+
+```{r, message=FALSE}
+summaries$bill_depth_mm %>% head(2)
+```
+
+<br/>
+
+. . .
+
+```{r, message=FALSE}
+summaries$flipper_length_mm %>% head(2)
+```
+
+<br/>
+
+. . .
+
+```{r, message=FALSE}
+summaries$body_mass_g %>% head(2)
+```
+
+# Organising projects
+
+## .Rpoj
+
+R projects help us to keep all the files associated with a project together --- input data, R scripts, analytical results, figures.
+
+![](images/projects_new.png){width="300"}
+
+## .Rpoj and here()
+
+We can use the here package to manage project-relative paths. This allows us to easily run the code in different environments.
+
+![](images/e684ee45-98fc-469e-997c-e2d68b0096cd_rw_1920.png){width="550"}
+
+Artwork by @allison_horst
+
+## .Rpoj + renv
+
+We can also use the renv to "save" and "load" the state of your project library. This means we can (in theory) run the code again in the future without worrying about changes in dependencies.
+
+![](images/3c1eda6b-be13-4257-9c32-4cf865f171ae_rw_1920.png){width="550"}
+
+Artwork by @allison_horst
+
+## Github
+
+Keeping our R projects on github (aside from any data used in a study) allows us to track and manage changes to our own code and facilitate working with others.
+
+![](images/paste-08A46FBF.png)
