@@ -1,4 +1,4 @@
 - source: presentation.qmd
   quarto-pub:
-    - id: 64ac9c9b-0381-4172-b627-cc54b2dfa21e
+    - id: 03588024-9792-489e-9769-7dc7c1336836
       url: 'https://quartopub.com/sites/e-burn/getting-started-with-r'
