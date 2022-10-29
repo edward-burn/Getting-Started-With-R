@@ -1,7 +1,7 @@
 # Getting-Started-With-R
 
 ## PRESENTATION
-A copy of the presentation can be found in the Presentation folder. You can also view the presentation at https://github.com/edward-burn/Getting-Started-With-R
+A copy of the presentation can be found in the Presentation folder. You can also view the presentation at https://e-burn.quarto.pub/getting-started-with-r
 
 
 ## PRACTICAL
