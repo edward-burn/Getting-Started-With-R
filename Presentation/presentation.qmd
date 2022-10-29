@@ -48,6 +48,28 @@ editor: visual
 :::
 :::
 
+## Packages
+
+Packages are collections of R functions, data, and compiled code in a structured format. The directories in R where the packages are stored are called the libraries.
+
+<br/>
+
+. . .
+
+There are a set of standard (base) packages which are considered part of the R source code and automatically available as part of your R installation. Base packages contain the basic functions that allow R to work.
+
+<br/>
+
+. . .
+
+In addition, there are 10,000+ user contributed packages.
+
+<br/>
+
+. . .
+
+CRAN is a repository where the latest downloads of R (and legacy versions) are found along with user contributed R packages. Packages can also be downloaded from GitHub or elsewhere.
+
 ## Installing packages
 
 <br/>
@@ -107,7 +129,7 @@ Typically for analysis scripts, I would load all the libraries I use at the top 
 
 . . .
 
-To do useful things in R we need to assign values to objects. . . . <br/> To create an object, we need to give it a name followed by the assignment operator \<-, and the value we want to give it: . . .
+To do useful things in R we need to assign values to objects. To create an object, we need to give it a name followed by the assignment operator \<-, and the value we want to give it.
 
 ```{r}
 weight_kg <- 55
@@ -125,11 +147,11 @@ weight_lb
 
 ## Vectors and data types
 
-There are four primary types of atomic vectors in R: logical, integer, double, and character (which contains strings)
+There are four primary types of (atomic) vectors in R: logical, integer, double, and character (which contains strings)
 
 <br/>
 
-. . . .
+. . .
 
 ```{r}
 # Logicals can be written in full (TRUE or FALSE), or abbreviated (T or F).
@@ -142,17 +164,15 @@ lgl_var
 . . .
 
 ```{r}
-# Integers are written similarly to doubles but must be followed by L, and can not contain fractional values.
+# Integers 
 int_var <- c(1L, 6L, 10L)
 int_var
 ```
 
-<br/>
-
-. . .
+## Vectors and data types
 
 ```{r}
-# Doubles can be specified in decimal (0.1234), scientific (1.23e4), or hexadecimal (0xcafe) form. There are three special values unique to doubles: Inf, -Inf, and NaN (not a number). These are special values defined by the floating point standard.
+# Doubles 
 dbl_var <- c(1, 2.5, 4.5)
 dbl_var
 ```
@@ -162,9 +182,56 @@ dbl_var
 . . .
 
 ```{r}
-# Strings are surrounded by " ("hi") or ' ('bye'). Special characters are escaped with \; see ?Quotes for full details.
+# Strings 
 chr_var <- c("these are", "some strings")
 chr_var
+```
+
+## Factors and dates
+
+![](images/summary-tree-s3-1.png){width="300"}
+
+## Factors
+
+```{r}
+months <- c("Dec", "Apr", "Jan", "Mar")
+str(months)
+sort(months) # not very useful
+```
+
+<br/>
+
+. . .
+
+```{r}
+months <- factor(months, 
+                    levels=c("Jan", "Mar",
+                              "Apr","Dec"))
+str(months)
+sort(months) # now useful
+```
+
+## Dates
+
+```{r}
+as.Date("2017-01-31")
+# as.Date("20170131") # won't work
+```
+
+<br/>
+
+. . .
+
+```{r}
+lubridate::ymd("20170131")
+```
+
+<br/>
+
+. . .
+
+```{r}
+lubridate::dmy("31012017")
 ```
 
 ## Working with vectors
@@ -200,7 +267,7 @@ weight_g * c(1,2,3,4)
 . . .
 
 ```{r}
-weight_g * c(1,2)
+weight_g * c(1,2) #probably a bad idea
 ```
 
 ## Aggregating functions
@@ -263,27 +330,43 @@ weight_g[weight_g > 30 & weight_g < 50]
 
 ## Data frames
 
-![](images/data-frame.svg){width="400"}
+A data frame is a list of equal-length vectors
+
+![](images/data-frame.svg){width="275"}
 
 ## Tibbles
 
 Tibbles *are* data frames, but they tweak some older behaviours to make life a little easier.
 
-Compared to a data frame, a tibble() does much less: it never changes the type of the inputs (e.g. it never converts strings to factors!), it never changes the names of variables, and it never creates row names.
+Compared to a data frame, a tibble does much less: it never changes the type of the inputs (e.g. it never converts strings to factors), it never changes the names of variables, and it never creates row names.
 
 <br/>
 
 . . .
 
+::: columns
+::: {.column width="50%"}
+::: fragment
 ```{r}
 iris # dataframe
+```
+:::
+:::
 
+::: {.column width="50%"}
+::: fragment
+```{r}
 dplyr::as_tibble(iris)
 ```
+:::
+:::
+:::
 
 ## Tidy data
 
-![](images/85520b8f-4629-4763-8a2a-9ceff27458bf_rw_1920.jpg){width="1000"} Artwork by @allison_horst
+![](images/85520b8f-4629-4763-8a2a-9ceff27458bf_rw_1920.jpg){width="1000"}
+
+Artwork by @allison_horst
 
 ## Getting data into R
 
@@ -307,11 +390,11 @@ chickens <- read_csv(
 
 ## Penguins data
 
+The from [palmerpenguins package](https://allisonhorst.github.io/palmerpenguins/) contains data on penguins collected from the [Palmer Station](https://en.wikipedia.org/wiki/Palmer_Station) in Antarctica.
+
 ![](images/lter_penguins.png){width="300"}
 
 *Artwork by \@allison_horst*
-
-The from [palmerpenguins package](https://allisonhorst.github.io/palmerpenguins/) contains data on penguins collected from the [Palmer Station](https://en.wikipedia.org/wiki/Palmer_Station) in Antarctica.
 
 ## Penguins data
 
@@ -321,15 +404,10 @@ install.packages("palmerpenguins")
 
 <br/>
 
-```{r, message=FALSE}
-library(palmerpenguins)
-```
-
-<br/>
-
 . . .
 
 ```{r, message=FALSE}
+library(palmerpenguins)
 penguins
 ```
 
@@ -361,6 +439,15 @@ penguins %>%
 penguins %>% 
   select(c("species", "island")) %>% 
   mutate(species_island=paste0(species, " - ", island))
+```
+
+## mutate() and if_else()
+
+```{r, message=FALSE}
+penguins %>% 
+  select(c("species", "bill_length_mm")) %>% 
+  mutate(bill_type=if_else(bill_length_mm>=40,
+                           "big bill", "little bill"))
 ```
 
 ## rename()
@@ -534,8 +621,9 @@ penguins %>%
 penguins %>% 
   group_by(species, sex) %>% 
   summarise(min=min(body_mass_g, na.rm=TRUE),
-            median=quantile( body_mass_g, 0.5, na.rm=TRUE),
-            max=max(body_mass_g, na.rm=TRUE))
+            median=quantile(body_mass_g, 0.5, na.rm=TRUE),
+            max=max(body_mass_g, na.rm=TRUE)) %>% 
+  head(2)
 ```
 
 <br/>
@@ -547,11 +635,11 @@ penguins %>%
   group_by(species, sex) %>% 
   summarise(min=min(flipper_length_mm, na.rm=TRUE),
             median=quantile(flipper_length_mm, 0.5, na.rm=TRUE),
-            max=max(flipper_length_mm, na.rm=TRUE))
-
+            max=max(flipper_length_mm, na.rm=TRUE)) %>% 
+  head(2)
 ```
 
-## function
+## Function with one argument
 
 ```{r}
 penguin_summary<-function(var){
@@ -561,9 +649,7 @@ penguins %>%
   summarise(min = min({{ var }}, na.rm=TRUE),
             median = quantile({{ var }}, 0.5, na.rm=TRUE),
             max = max({{ var }}, na.rm=TRUE))
-
 }
-
 ```
 
 <br/>
@@ -571,10 +657,8 @@ penguins %>%
 . . .
 
 ```{r}
-penguin_summary(body_mass_g) %>% head(2)
+penguin_summary(body_mass_g) %>% head(2) 
 ```
-
-<br/>
 
 . . .
 
@@ -582,15 +666,15 @@ penguin_summary(body_mass_g) %>% head(2)
 penguin_summary(flipper_length_mm) %>% head(2)
 ```
 
-## for loop
+## For loop
 
 ```{r, message=FALSE}
-summaries<-list() # empty list to store results
 vars_to_summarise <- c("bill_length_mm",
                        "bill_depth_mm",
                        "flipper_length_mm",
                        "body_mass_g")
 
+summaries<-list() # empty list to store results
 for(i in 1:length(vars_to_summarise)){
 working_var<- vars_to_summarise[i]
 summaries[[vars_to_summarise[[i]]]] <- penguin_summary(!!rlang::sym(vars_to_summarise[[i]]))
@@ -602,43 +686,64 @@ summaries[[vars_to_summarise[[i]]]] <- penguin_summary(!!rlang::sym(vars_to_summ
 
 . . .
 
-```{r, message=FALSE}
+::: columns
+::: {.column width="50%"}
+::: fragment
+```{r}
 summaries$bill_length_mm %>% head(2)
-```
-
-<br/>
-
-. . .
-
-```{r, message=FALSE}
 summaries$bill_depth_mm %>% head(2)
 ```
+:::
+:::
 
-<br/>
-
-. . .
-
+::: {.column width="50%"}
+::: fragment
 ```{r, message=FALSE}
 summaries$flipper_length_mm %>% head(2)
+summaries$body_mass_g %>% head(2)
+```
+:::
+:::
+:::
+
+## Function with multiple arguments
+
+```{r}
+penguin_summary1<-function(var, groupings=c("species", "sex")){
+penguins %>% 
+  group_by(across(groupings)) %>% 
+  summarise(min = min({{ var }}, na.rm=TRUE),
+            median = quantile({{ var }}, 0.5, na.rm=TRUE),
+            max = max({{ var }}, na.rm=TRUE))
+}
 ```
 
 <br/>
 
 . . .
 
-```{r, message=FALSE}
-summaries$body_mass_g %>% head(2)
+```{r}
+penguin_summary1(var=body_mass_g) %>% head(2) # groupings used will be defaults
+```
+
+<br/>
+
+. . .
+
+```{r}
+penguin_summary1(var=body_mass_g, groupings = "island") %>% 
+  head(2) 
 ```
 
 # Organising projects
 
-## .Rpoj
+## .Rproj
 
 R projects help us to keep all the files associated with a project together --- input data, R scripts, analytical results, figures.
 
 ![](images/projects_new.png){width="300"}
 
-## .Rpoj and here()
+## .Rproj and here()
 
 We can use the here package to manage project-relative paths. This allows us to easily run the code in different environments.
 
@@ -646,7 +751,7 @@ We can use the here package to manage project-relative paths. This allows us to 
 
 Artwork by @allison_horst
 
-## .Rpoj + renv
+## .Rproj + renv
 
 We can also use the renv to "save" and "load" the state of your project library. This means we can (in theory) run the code again in the future without worrying about changes in dependencies.
 
@@ -659,3 +764,15 @@ Artwork by @allison_horst
 Keeping our R projects on github (aside from any data used in a study) allows us to track and manage changes to our own code and facilitate working with others.
 
 ![](images/paste-08A46FBF.png)
+
+# Further reading
+
+![](images/books.png)
+
+# Questions?
+
+<https://letmegooglethat.com/?q=how+to+install+r>
+
+# Practical
+
+<https://github.com/edward-burn/Getting-Started-With-R>
