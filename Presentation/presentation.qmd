@@ -567,26 +567,22 @@ penguins %>% tail(5))
 ## left_join()
 
 ```{r, message=FALSE}
-penguins1 <- penguins %>% 
-  select(-"island")
-penguins1 %>% head(2)
+islands <-tibble::tibble(island=c("Torgersen", "Biscoe","Dream"),
+                         climate=c("dry", "dry", "tropical"))
+
+penguins %>% left_join(islands,
+                       by = "island")
 ```
 
-<br/>
 
-```{r, message=FALSE}
-islands <- penguins %>% 
-  select(c("species", "island")) %>% 
-  distinct()
-islands %>% head(2)
-```
-
-## left_join()
+## inner_join()
 
 ```{r}
-penguins1 %>% 
-left_join(islands,
-          by=c("species"))
+islands <-tibble::tibble(island=c("Biscoe","Dream"),
+                         climate=c("dry", "tropical"))
+
+penguins %>% inner_join(islands,
+                       by = "island")
 ```
 
 ## pivot_longer()
