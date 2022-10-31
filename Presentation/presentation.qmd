@@ -478,9 +478,8 @@ penguins %>%
 
 ```{r, message=FALSE}
 penguins %>% 
-  select(c("species", "island")) %>% 
-  distinct() %>% 
-  arrange("bill_length_mm")
+  select(c("species", "island", "bill_length_mm")) %>% 
+  arrange(bill_length_mm)
 ```
 
 ## mutate()
@@ -662,6 +661,23 @@ penguins %>%
    geom_histogram(aes(body_mass_g), colour="black", binwidth = 100)+
    theme_bw()+
    theme(legend.position = "none")
+```
+
+
+## Historgram of body mass
+
+```{r}
+penguins %>% 
+   filter(!is.na(sex)) %>% 
+   mutate(species=stringr::str_to_upper(species)) %>% 
+   mutate(sex=stringr::str_to_upper(sex)) %>% 
+   ggplot(aes(group=species, fill=species))+
+   facet_grid(species~ sex) +
+   geom_histogram(aes(body_mass_g), colour="black", binwidth = 100)+
+   theme_bw()+
+   theme(legend.position = "none") +
+   xlab("Body mass (g)") +
+   ylab("N")
 ```
 
 # Summarising data
