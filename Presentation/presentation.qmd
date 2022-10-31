@@ -422,15 +422,65 @@ library(dplyr)
 <br/>
 
 ```{r, message=FALSE}
+glimpse(penguins)
+```
+
+## piping
+
+The pipe %\>% chains multiple functions together.
+
+<br/>
+
+. . .
+
+Since R 4.1.0 there is also now a native pipe \|\>
+
+<br/>
+
+. . .
+
+::: columns
+::: {.column width="50%"}
+::: fragment
+```{r}
 penguins %>% 
   glimpse()
 ```
+:::
+:::
+
+::: {.column width="50%"}
+::: fragment
+```{r}
+penguins |> 
+  glimpse()
+```
+:::
+:::
+:::
 
 ## select()
 
 ```{r, message=FALSE}
 penguins %>% 
   select(c("species", "island"))
+```
+
+## distinct()
+
+```{r, message=FALSE}
+penguins %>% 
+  select(c("species", "island")) %>% 
+  distinct()
+```
+
+## arrange()
+
+```{r, message=FALSE}
+penguins %>% 
+  select(c("species", "island")) %>% 
+  distinct() %>% 
+  arrange("bill_length_mm")
 ```
 
 ## mutate()
@@ -462,8 +512,38 @@ penguins %>%
 
 ```{r, message=FALSE}
 penguins %>% 
-  filter(species=="Chinstrap")
+  filter(species=="Chinstrap") %>% 
+  head(3)
 ```
+
+<br/>
+
+. . .
+
+
+::: columns
+::: {.column width="50%"}
+::: fragment
+```{r}
+penguins %>% 
+  filter(species=="Chinstrap" |
+         species=="Adelie") %>% 
+  head(3)
+```
+:::
+:::
+
+::: {.column width="50%"}
+::: fragment
+```{r}
+penguins %>% 
+  filter(species %in% c("Chinstrap",
+                        "Adelie")) %>% 
+  head(3)
+```
+:::
+:::
+:::
 
 ## bind_rows()
 
@@ -586,36 +666,67 @@ penguins %>%
 
 # Summarising data
 
+## count()
+
+```{r}
+penguins %>% 
+  count()
+```
+
+<br/>
+
+. . .
+
+```{r}
+penguins %>% 
+  group_by(species) %>% 
+  count()
+```
+
+
+## summarise()
+
+```{r}
+penguins %>% 
+  group_by(island, species) %>% 
+  count()
+```
+
+<br/>
+
+. . .
+
+```{r}
+penguins %>% 
+  group_by(island, species) %>% 
+  summarise(n=n())
+```
+
+
 ## summarise()
 
 ```{r}
 penguins %>% 
   summarise(min_body_mass_g=min(body_mass_g, na.rm=TRUE),
-            median_body_mass_g=quantile( body_mass_g, 0.5, na.rm=TRUE),
+            median_body_mass_g=quantile(body_mass_g, 0.5, na.rm=TRUE),
             max=max(body_mass_g, na.rm=TRUE))
 ```
 
-## group_by() and summarise()
+<br/>
 
-```{r}
-penguins %>% 
-  group_by(species) %>% 
-  summarise(min_body_mass_g=min(body_mass_g, na.rm=TRUE),
-            median_body_mass_g=quantile( body_mass_g, 0.5, na.rm=TRUE),
-            max=max(body_mass_g, na.rm=TRUE))
-```
-
-## group_by() and summarise()
+. . .
 
 ```{r}
 penguins %>% 
   group_by(species, sex) %>% 
   summarise(min=min(body_mass_g, na.rm=TRUE),
-            median=quantile( body_mass_g, 0.5, na.rm=TRUE),
+            median=quantile(body_mass_g, 0.5, na.rm=TRUE),
             max=max(body_mass_g, na.rm=TRUE))
 ```
 
 # Iteration and functions
+
+## Repetition
 
 ```{r}
 penguins %>% 
