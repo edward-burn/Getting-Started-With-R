@@ -519,7 +519,6 @@ penguins %>%
 
 . . .
 
-
 ::: columns
 ::: {.column width="50%"}
 ::: fragment
@@ -574,7 +573,6 @@ penguins %>% left_join(islands,
                        by = "island")
 ```
 
-
 ## inner_join()
 
 ```{r}
@@ -605,7 +603,7 @@ penguins %>%
 
 # Visualising data
 
-## Historgram of body mass
+## Histogram of body mass
 
 ```{r}
 library(ggplot2)
@@ -619,7 +617,7 @@ ggplot()+
    geom_histogram(aes(body_mass_g))
 ```
 
-## Historgram of body mass
+## Histogram of body mass
 
 ```{r, warning=FALSE}
 penguins %>%   
@@ -628,7 +626,7 @@ geom_histogram(aes(body_mass_g), colour="black", binwidth = 100)+
    theme_bw()
 ```
 
-## Historgram of body mass
+## Histogram of body mass
 
 ```{r}
 penguins %>%   
@@ -637,7 +635,7 @@ geom_histogram(aes(body_mass_g), colour="black", binwidth = 100)+
    theme_bw()
 ```
 
-## Historgram of body mass
+## Histogram of body mass
 
 ```{r}
 penguins %>% 
@@ -648,7 +646,7 @@ penguins %>%
    theme(legend.position = "none")
 ```
 
-## Historgram of body mass
+## Histogram of body mass
 
 ```{r}
 penguins %>% 
@@ -659,8 +657,7 @@ penguins %>%
    theme(legend.position = "none")
 ```
 
-
-## Historgram of body mass
+## Histogram of body mass
 
 ```{r}
 penguins %>% 
@@ -695,7 +692,6 @@ penguins %>%
   count()
 ```
 
-
 ## summarise()
 
 ```{r}
@@ -713,7 +709,6 @@ penguins %>%
   group_by(island, species) %>% 
   summarise(n=n())
 ```
-
 
 ## summarise()
 
@@ -834,7 +829,7 @@ summaries$body_mass_g %>% head(2)
 ```{r}
 penguin_summary1<-function(var, groupings=c("species", "sex")){
 penguins %>% 
-  group_by(across(groupings)) %>% 
+  group_by(across(all_of(groupings))) %>% 
   summarise(min = min({{ var }}, na.rm=TRUE),
             median = quantile({{ var }}, 0.5, na.rm=TRUE),
             max = max({{ var }}, na.rm=TRUE))
