@@ -7,7 +7,7 @@
 <link href="presentation_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="presentation_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="presentation_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.0.37">
+  <meta name="generator" content="quarto-1.1.189">
 
   <meta name="author" content="Ed Burn">
   <title>Getting started with R</title>
@@ -19,10 +19,15 @@
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -920,8 +925,7 @@ Levels: Jan Mar Apr Dec</code></pre>
  8          5           3.4          1.5         0.2 setosa 
  9          4.4         2.9          1.4         0.2 setosa 
 10          4.9         3.1          1.5         0.1 setosa 
-# … with 140 more rows
-# ℹ Use `print(n = ...)` to see more rows</code></pre>
+# … with 140 more rows</code></pre>
 </div>
 </div>
 </div>
@@ -983,8 +987,7 @@ Levels: Jan Mar Apr Dec</code></pre>
  9 Adelie  Torgersen           34.1          18.1        193    3475 &lt;NA&gt;   2007
 10 Adelie  Torgersen           42            20.2        190    4250 &lt;NA&gt;   2007
 # … with 334 more rows, and abbreviated variable names ¹​flipper_length_mm,
-#   ²​body_mass_g
-# ℹ Use `print(n = ...)` to see more rows</code></pre>
+#   ²​body_mass_g</code></pre>
 </div>
 </div>
 </div>
@@ -1087,8 +1090,7 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
  8 Adelie  Torgersen
  9 Adelie  Torgersen
 10 Adelie  Torgersen
-# … with 334 more rows
-# ℹ Use `print(n = ...)` to see more rows</code></pre>
+# … with 334 more rows</code></pre>
 </div>
 </div>
 </section>
@@ -1130,8 +1132,7 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
  8 Adelie  Torgersen           34.6
  9 Adelie  Torgersen           34.6
 10 Adelie  Biscoe              35  
-# … with 334 more rows
-# ℹ Use `print(n = ...)` to see more rows</code></pre>
+# … with 334 more rows</code></pre>
 </div>
 </div>
 </section>
@@ -1155,8 +1156,7 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
  8 Adelie  Torgersen Adelie - Torgersen
  9 Adelie  Torgersen Adelie - Torgersen
 10 Adelie  Torgersen Adelie - Torgersen
-# … with 334 more rows
-# ℹ Use `print(n = ...)` to see more rows</code></pre>
+# … with 334 more rows</code></pre>
 </div>
 </div>
 </section>
@@ -1181,8 +1181,7 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
  8 Adelie            39.2 little bill
  9 Adelie            34.1 little bill
 10 Adelie            42   big bill   
-# … with 334 more rows
-# ℹ Use `print(n = ...)` to see more rows</code></pre>
+# … with 334 more rows</code></pre>
 </div>
 </div>
 </section>
@@ -1206,8 +1205,7 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
  8 Adelie Torgersen
  9 Adelie Torgersen
 10 Adelie Torgersen
-# … with 334 more rows
-# ℹ Use `print(n = ...)` to see more rows</code></pre>
+# … with 334 more rows</code></pre>
 </div>
 </div>
 </section>
@@ -1349,8 +1347,7 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
  9 Adelie  Torgersen           34.1     18.1     193    3475 &lt;NA&gt;   2007 dry    
 10 Adelie  Torgersen           42       20.2     190    4250 &lt;NA&gt;   2007 dry    
 # … with 334 more rows, and abbreviated variable names ¹​bill_depth_mm,
-#   ²​flipper_length_mm, ³​body_mass_g
-# ℹ Use `print(n = ...)` to see more rows</code></pre>
+#   ²​flipper_length_mm, ³​body_mass_g</code></pre>
 </div>
 </div>
 </section>
@@ -1377,8 +1374,7 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
  9 Adelie  Biscoe           37.9        18.6     172    3150 fema…  2007 dry    
 10 Adelie  Biscoe           40.5        18.9     180    3950 male   2007 dry    
 # … with 282 more rows, and abbreviated variable names ¹​bill_depth_mm,
-#   ²​flipper_length_mm, ³​body_mass_g
-# ℹ Use `print(n = ...)` to see more rows</code></pre>
+#   ²​flipper_length_mm, ³​body_mass_g</code></pre>
 </div>
 </div>
 </section>
@@ -1410,8 +1406,7 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
  8 Adelie  Torgersen female  2007 body_mass_g       3800  
  9 Adelie  Torgersen female  2007 bill_length_mm      40.3
 10 Adelie  Torgersen female  2007 bill_depth_mm       18  
-# … with 1,366 more rows
-# ℹ Use `print(n = ...)` to see more rows</code></pre>
+# … with 1,366 more rows</code></pre>
 </div>
 </div>
 </section></section>
@@ -1420,8 +1415,8 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <h1>Visualising data</h1>
 
 </section>
-<section id="historgram-of-body-mass" class="slide level2">
-<h2>Historgram of body mass</h2>
+<section id="histogram-of-body-mass" class="slide level2">
+<h2>Histogram of body mass</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1433,8 +1428,8 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 
 </div>
 <img data-src="presentation_files/figure-revealjs/unnamed-chunk-54-1.png" width="960" class="r-stretch"></section>
-<section id="historgram-of-body-mass-1" class="slide level2">
-<h2>Historgram of body mass</h2>
+<section id="histogram-of-body-mass-1" class="slide level2">
+<h2>Histogram of body mass</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span>   </span>
 <span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span> </span>
@@ -1443,8 +1438,8 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 
 </div>
 <img data-src="presentation_files/figure-revealjs/unnamed-chunk-55-1.png" width="960" class="r-stretch"></section>
-<section id="historgram-of-body-mass-2" class="slide level2">
-<h2>Historgram of body mass</h2>
+<section id="histogram-of-body-mass-2" class="slide level2">
+<h2>Histogram of body mass</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span>   </span>
 <span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">group=</span>species, <span class="at">fill=</span>species))<span class="sc">+</span></span>
@@ -1453,8 +1448,8 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 
 </div>
 <img data-src="presentation_files/figure-revealjs/unnamed-chunk-56-1.png" width="960" class="r-stretch"></section>
-<section id="historgram-of-body-mass-3" class="slide level2">
-<h2>Historgram of body mass</h2>
+<section id="histogram-of-body-mass-3" class="slide level2">
+<h2>Histogram of body mass</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span> </span>
 <span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">group=</span>species, <span class="at">fill=</span>species))<span class="sc">+</span></span>
@@ -1465,8 +1460,8 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 
 </div>
 <img data-src="presentation_files/figure-revealjs/unnamed-chunk-57-1.png" width="960" class="r-stretch"></section>
-<section id="historgram-of-body-mass-4" class="slide level2">
-<h2>Historgram of body mass</h2>
+<section id="histogram-of-body-mass-4" class="slide level2">
+<h2>Histogram of body mass</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span> </span>
 <span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">group=</span>species, <span class="at">fill=</span>species))<span class="sc">+</span></span>
@@ -1477,8 +1472,8 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 
 </div>
 <img data-src="presentation_files/figure-revealjs/unnamed-chunk-58-1.png" width="960" class="r-stretch"></section>
-<section id="historgram-of-body-mass-5" class="slide level2">
-<h2>Historgram of body mass</h2>
+<section id="histogram-of-body-mass-5" class="slide level2">
+<h2>Histogram of body mass</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span> </span>
 <span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sex)) <span class="sc">%&gt;%</span> </span>
@@ -1761,7 +1756,7 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <div class="cell">
 <div class="sourceCode cell-code" id="cb147"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a>penguin_summary1<span class="ot">&lt;-</span><span class="cf">function</span>(var, <span class="at">groupings=</span><span class="fu">c</span>(<span class="st">"species"</span>, <span class="st">"sex"</span>)){</span>
 <span id="cb147-2"><a href="#cb147-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span> </span>
-<span id="cb147-3"><a href="#cb147-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="fu">across</span>(groupings)) <span class="sc">%&gt;%</span> </span>
+<span id="cb147-3"><a href="#cb147-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="fu">across</span>(<span class="fu">all_of</span>(groupings))) <span class="sc">%&gt;%</span> </span>
 <span id="cb147-4"><a href="#cb147-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">min =</span> <span class="fu">min</span>({{ var }}, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
 <span id="cb147-5"><a href="#cb147-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">median =</span> <span class="fu">quantile</span>({{ var }}, <span class="fl">0.5</span>, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
 <span id="cb147-6"><a href="#cb147-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">max =</span> <span class="fu">max</span>({{ var }}, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span>
@@ -2163,7 +2158,8 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
       for (var i=0; i<noterefs.length; i++) {
         const ref = noterefs[i];
         tippyHover(ref, function() {
-          let href = ref.getAttribute('href');
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
